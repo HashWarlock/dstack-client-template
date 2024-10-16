@@ -1,5 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { TappdClient } from "@phala/dstack-sdk";
 
-export default function hello(req, res) {
-  res.status(200).json({ name: "John Doe" });
+const client = new TappdClient('../tappd.sock')
+
+export default async function hello(req, res) {
+  const testQuote = await client.tdxQuote('test')
+  const testDerive = await client.deriveKey('/','test')
+  res.status(200).json({ testQuote, testDerive });
 }
